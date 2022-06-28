@@ -96,10 +96,20 @@ var app = new Vue({
         },
         salehisto(){
             this.salereg.push({
-                prod: this.saletable[0].name,
-                qty: this.saletable[0].price,
-                total: this.saletable[0].total
+                id: this.salereg.length + 1,
+                sale: []
             });
+
+            const sale = this.saletable.map(e => {
+                return{
+                    name: e.name,
+                    price: e.price,
+                    qty: e.qty,
+                    total: e.total
+                }
+            });
+
+            this.salereg[this.salereg.length - 1].sale = sale;
             console.log(this.salereg);
             this.saletable.splice(0, this.saletable.length);
             this.updateLocalStorage();
