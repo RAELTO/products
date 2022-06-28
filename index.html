@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Sunset</title>
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+        crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="./assets/css/styles.css">
+    </head>
+    <body>
+        <div id="app">
+            <!-- HEADER -->
+            <header>
+                <nav id="navbar" class="navbar navbar-expand-lg bg-light navbar-light">
+                    <div class="container">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="./assets/images/logo.png" alt="logo">
+                            <span>Sunset</span>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#allpr">Products</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <!-- HEADER -->
+
+            <!-- MAIN -->
+            <section id="main">
+                <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="./assets/images/img1.png" class="d-block w-100" alt="js">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./assets/images/img2.jpg" class="d-block w-100" alt="vuejs">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./assets/images/img3.jpg" class="d-block w-100" alt="nodejs">
+                        </div>
+                        <div class="overlay">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col md-6 offset-md-6 text-center text-md-start">
+                                        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, officiis?</h1>
+                                        <p class="d-none d-md-block">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, officia nobis? Nam..
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="saletable">
+                <div class="container">
+                    <h3 class="text-center">Sales Table</h3>
+                    <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal"  data-bs-target="#regprod">New Product</button>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <form>
+                                    <label class="form-label">Product</label>
+                                    <select v-model="saleprod" class="form-select form-select-sm" aria-label=".form-select-sm example" v-if="fproducts.length">
+                                        <option :value="item.name" v-for="(item, index) in fproducts" v-text="item.name"></option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="col-6 mt-4">
+                                <form>
+                                    <label class="form-label">Amount</label>
+                                    <input type="number" v-model="saleamount">
+                                    <button type="button" class="btn btn-success" @click="addTosales">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center" v-if="saletable.length">
+                                <tr v-for="(item, index) in saletable">
+                                    <td v-text="item.name"></td>
+                                    <td v-text="item.price"></td>
+                                    <td v-text="item.qty"></td>
+                                    <td v-text="item.total">0</td>
+                                </tr>
+                                <tr class="report">
+                                    <td colspan="2"></td>
+                                    <td colspan="2"><button type="button" class="btn btn-success">Register</button></td>
+                                </tr>
+                            </tbody>
+                            <tbody v-else>
+                                <td colspan="5" class="text-center">
+                                    DATA NOT FOUND
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="modal fade" id="regprod" tabindex="-1" aria-labelledby="modalAdopcion" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Product data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="nameProd" class="form-label">Name</label>
+                                    <input v-model="pname" type="text" class="form-control" id="nameProd" placeholder="Type the product name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input v-model="pprice" type="number" min="0" max="100" class="form-control" id="price">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="qty" class="form-label">Qty</label>
+                                    <input v-model="pqty" type="number" min="0" max="100" class="form-control" id="qty">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select v-model="pcateg" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                        <option value="" selected>Select an option</option>
+                                        <option :value="categories[0].name">thirts</option>
+                                        <option :value="categories[1].name">shirts</option>
+                                        <option :value="categories[2].name">jackets</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="desct" class="form-label">Desc</label>
+                                    <input v-model="pdesc" type="text" class="form-control" id="desc" placeholder="description">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="addnewprod" type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="allpr"></div>
+
+            <!-- products -->
+            <section id="products" class="mt-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center text-uppercase">
+                            <h1 class="menu-title">Our Products</h1>
+                        </div>
+                    </div>
+                    <!-- products & modals-->
+                    <div class="row" v-if="products.length">
+                        <div class="col-md-6 col-lg-3 mt-3 mb-4" v-for="(item, index) in fproducts" :key="item.id" v-if="fproducts.length > 0">
+                            <div class="card">
+                                <img :src="item.img" class="card-img-top" alt="pr1" data-bs-toggle="modal" :data-bs-target="item.modalw">
+                                <div class="card-body">
+                                    <h5 class="card-title" v-text="item.name">title</h5>
+                                    <p class="card-text"><strong  v-text="item.desc"></strong></p>
+                                    <h4 class="text-center mb-3"><strong>$ </strong> <span><strong v-text="item.price"></strong></span></h4>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- products modals -->
+                            <div id="modals">
+                                <div  class="modal fade" :id="item.modal_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-center" id="exampleModalLabel" v-text="item.name"></h5>
+                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img :src="item.img" class="card-img-top" alt="hd4">
+                                                <h4>Descripción:</h4>
+                                                <p v-text="item.descmodal"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /products & modals -->
+                        </div>
+                    </div>
+                    <!-- /products -->
+                </div>
+            </section>
+            <!-- /products -->
+
+
+            <!-- FOOTER -->
+            <footer id="footer" class="pb-4 pt-4">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-12 col-lg col-md">
+                            <a href="#">FAQ</a>
+                        </div>
+                        <div class="col-12 col-lg col-md">
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="col-12 col-lg col-md">
+                            <a href="#">Novedades</a>
+                        </div>
+                        <div class="col-12 col-lg col-md">
+                            <a href="#">Privacy</a>
+                        </div>
+                        <div class="col-12 col-lg col-md">
+                            <a href="#allpr">Products</a>
+                        </div>
+                        <div class="col-12 col-lg col-md">
+                            <h6 class="text-center mt-2 mb-2">
+                                Follow us: 
+                                <a href="#"><i class="fab fa-instagram-square"></i></a>
+                                <a href="#"><i class="fab fa-facebook-square"></i></a>
+                            </h6>
+                        </div>
+                    </div>
+                    <h6 class="text-center mt-4">© Copyright - All rights reserved</h6>
+                    <h6 class="text-center mt-4">Sunset</h6>
+                </div>
+            </footer>
+            <!-- /FOOTER -->
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
+    <script src="./assets/js/vue.js"></script>
+    <script src="./assets/js/main.js"></script>
+</html>
