@@ -69,13 +69,18 @@ var app = new Vue({
                 return object.name == this.saleprod;
             });
 
-            this.saletable.push({
-                name: this.products[index].name,
-                price: this.products[index].price,
-                qty: this.saleamount,
-                total: this.products[index].price * this.saleamount
-            });
-            this.updateLocalStorage();
+            if (this.products[index].available > this.saleamount) {
+                this.saletable.push({
+                    name: this.products[index].name,
+                    price: this.products[index].price,
+                    qty: this.saleamount,
+                    total: this.products[index].price * this.saleamount
+                });
+                this.updateLocalStorage();
+            }else{
+                alert('There are not sufficient products available');
+            }
+            
         },
         addnewprod(){
             let c = 1;
