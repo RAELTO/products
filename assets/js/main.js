@@ -95,7 +95,12 @@ var app = new Vue({
             this.updateLocalStorage();
         },
         salehisto(){
-            this.salereg = this.saletable;
+            this.salereg.push({
+                prod: this.saletable[0].name,
+                qty: this.saletable[0].price,
+                total: this.saletable[0].total
+            });
+            console.log(this.salereg);
             this.saletable.splice(0, this.saletable.length);
             this.updateLocalStorage();
         },
@@ -110,11 +115,15 @@ var app = new Vue({
         if (localStorage.getItem('nproducts') !== null) {
             this.fproducts = JSON.parse(localStorage.getItem('nproducts'));
             this.products = JSON.parse(localStorage.getItem('products'));
-            this.saletable = JSON.parse(localStorage.getItem('products'));
-            this.salereg = JSON.parse(localStorage.getItem('products'));
         }else{
             this.fproducts = this.products;
             this.products = this.products;
+        }
+
+        if (localStorage.getItem('saletable') !== null) {
+            this.saletable = JSON.parse(localStorage.getItem('saletab'));
+            this.salereg = JSON.parse(localStorage.getItem('salereg'));
+        }else{
             this.saletable = this.saletable;
             this.salereg = this.salereg;
         }
